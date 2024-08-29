@@ -1,1 +1,120 @@
-<p>register works!</p>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center mb-4" style="color: #399918;">Welcome to the HireHive Registration</h2>
+            <p class="text-center" style="color: #777777;">Please fill out the form below to create your account. If you're an employer, you will not need to upload a CV.</p>
+
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <!-- User Type -->
+                <div class="mb-3">
+                    <label for="role" class="form-label">I am a:</label>
+                    <select name ="role" id="role" class="form-select" formControlName="role">
+                        <option value="jobSeeker">Job Seeker</option>
+                        <option value="employer">Employer</option>
+                    </select>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" class="form-control" formControlName="email" placeholder="Enter your email">
+                    <div class="invalid-feedback" *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)">
+                        <div *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</div>
+                        <div *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email address.</div>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-control" formControlName="password" placeholder="Enter your password">
+                    <div class="invalid-feedback" *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)">
+                        <div *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</div>
+                        <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</div>
+                    </div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword" placeholder="Confirm your password">
+                    <div *ngIf="registerForm.errors?.['passwordMismatch'] && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)" class="invalid-feedback">
+                        Passwords do not match.
+                    </div>
+                </div>
+
+                <div formGroupName="profile">
+                 
+                <!-- First Name -->
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" id="firstName" class="form-control" formControlName="firstName" placeholder="Enter your first name">
+                    <div class="invalid-feedback" *ngIf="registerForm.get('profile.firstName')?.invalid && (registerForm.get('profile.firstName')?.dirty || registerForm.get('profile.firstName')?.touched)">
+                    First name is required.
+                    </div>
+                </div>
+                
+                <!-- Last Name -->
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" id="lastName" class="form-control" formControlName="lastName" placeholder="Enter your last name">
+                    <div class="invalid-feedback" *ngIf="registerForm.get('profile.lastName')?.invalid && (registerForm.get('profile.lastName')?.dirty || registerForm.get('profile.lastName')?.touched)">
+                    Last name is required.
+                    </div>
+                </div>
+                
+                <!-- Age -->
+                <div class="mb-3">
+                    <label for="age" class="form-label">Age</label>
+                    <input type="number" id="age" class="form-control" formControlName="age" placeholder="Enter your age">
+                    <div class="invalid-feedback" *ngIf="registerForm.get('profile.age')?.invalid && (registerForm.get('profile.age')?.dirty || registerForm.get('profile.age')?.touched)">
+                    Age is required.
+                    </div>
+                </div>
+                
+                <!-- Bio -->
+                <div class="mb-3">
+                    <label for="bio" class="form-label">Bio</label>
+                    <textarea id="bio" class="form-control" formControlName="bio" rows="3" placeholder="Write a brief bio"></textarea>
+                </div>
+                
+                <!-- Contact Number -->
+                <div class="mb-3">
+                    <label for="contactNumber" class="form-label">Contact Number</label>
+                    <input type="text" id="contactNumber" class="form-control" formControlName="contactNumber" placeholder="Enter your contact number">
+                    <div class="invalid-feedback" *ngIf="registerForm.get('profile.contactNumber')?.invalid && (registerForm.get('profile.contactNumber')?.dirty || registerForm.get('profile.contactNumber')?.touched)">
+                    Contact number is required and must be at least 11 digits.
+                    </div>
+                </div>
+                
+                <!-- Resume -->
+                <div class="mb-3" *ngIf="registerForm.get('role')?.value === 'jobSeeker'">
+                    <label for="resume" class="form-label">Resume (CV) (please Upload the CV drive link)</label>
+                    <input type="text" id="resume" class="form-control" name="resume" formControlName="resume" placeholder="Upload the cv link">
+                </div>
+
+                <!-- Company Name -->
+                <div class="mb-3" *ngIf="registerForm.get('role')?.value === 'employer'">
+                    <label for="companyName" class="form-label">Company Name</label>
+                    <input type="text" id="companyName" class="form-control" formControlName="companyName" placeholder="Enter your company name">
+                    <div class="invalid-feedback" *ngIf="registerForm.get('profile.companyName')?.invalid && (registerForm.get('profile.companyName')?.dirty || registerForm.get('profile.companyName')?.touched)">
+                    Company name is required.
+                    </div>
+                </div>
+                
+                <!-- Company Website -->
+                <div class="mb-3" *ngIf="registerForm.get('role')?.value === 'employer'">
+                    <label for="companyWebsite" class="form-label">Company Website</label>
+                    <input type="text" id="companyWebsite" class="form-control" formControlName="companyWebsite" placeholder="Enter your company website">
+                    <div class="invalid-feedback" *ngIf="registerForm.get('profile.companyWebsite')?.invalid && (registerForm.get('profile.companyWebsite')?.dirty || registerForm.get('profile.companyWebsite')?.touched)">
+                    Company website is required.
+                    </div>
+                </div>
+                
+                </div>
+
+                <button type="submit" class="btn btn-lg  w-100 btn-success">Register</button>
+            </form>
+        </div>
+    </div>
+</div>

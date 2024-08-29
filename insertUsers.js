@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const User = require('./models/user')
 
-mongoose.connect('mongodb://localhost:27017/jobBoardDB');
+mongoose.connect('mongodb://localhost:27017/JobBoardDB');
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -10,17 +10,18 @@ db.once('open', async function() {
 
 
   const newUser = new User({
-    username: "Jana",
-    password: "hashedpassword", 
-    email: "Janadoe@example.com",
-    role: "jobSeeker",
+    password: "123456", 
+    email: "atmoharm@example.com",
+    role: "employer",
     profile: {
-      firstName: "Jana",
+      firstName: "Ahmad",
       lastName: "Doe",
       bio: "Experienced software developer.",
       resume: "http://example.com/resume/janadoe.pdf",
-      age : 21,
-      contactNumber: "01212199610"
+      age : 22,
+      contactNumber: "01212199610",
+      companyName: "Flex tech",
+      companyWebsite: "https://stackoverflow.com/questions/44499425/how-to-use-formcontrolname-and-deal-with-nested-formgroup"
     },
     createdAt: new Date(),
     updatedAt: new Date()

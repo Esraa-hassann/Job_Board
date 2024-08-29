@@ -1,0 +1,42 @@
+.application {
+    background-color: #ecffe6;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .job-title {
+    color: #ff7777;
+  }
+
+  .job-description {
+    margin-bottom: 20px;
+  }
+
+  .job-info {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .job-actions {
+    margin-top: 20px;
+  }
+
+  .badge {
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+
+  .bg-success {
+    background-color: #399918;
+  }
+
+  .bg-warning {
+    background-color: #ffaaaaff;
+  }
+
+  .bg-info {
+    background-color: #ff7777;
+  }

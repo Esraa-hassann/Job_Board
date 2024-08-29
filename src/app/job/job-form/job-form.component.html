@@ -1,1 +1,73 @@
-<p>job-form works!</p>
+<app-navbar></app-navbar>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center mb-4" style="color: #FF7777;">Add New Job</h2>
+            <p class="text-center" style="color: #777777;">Please fill out the form below to add your new job.</p>
+
+            <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+                <div class="card shadow-sm mb-4" style="border-color: #399918;">
+                    <div class="card-body">
+                        <!-- Job Title -->
+                        <div class="mb-3">
+                            <label for="jobTitle" class="form-label" style="color: #399918;">Job Title</label>
+                            <input type="text" id="jobTitle" class="form-control" formControlName="jobTitle" placeholder="Enter Job Title">
+                            <div class="invalid-feedback" *ngIf="jobForm.get('jobTitle')?.invalid && (jobForm.get('jobTitle')?.dirty || jobForm.get('jobTitle')?.touched)">
+                                Job Title is required.
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-3">
+                            <label for="description" class="form-label" style="color: #399918;">Description</label>
+                            <input type="text" id="description" class="form-control" formControlName="description" placeholder="Enter Job Description">
+                            <div class="invalid-feedback" *ngIf="jobForm.get('description')?.invalid && (jobForm.get('description')?.dirty || jobForm.get('description')?.touched)">
+                                Description is required.
+                            </div>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="mb-3">
+                            <label for="location" class="form-label" style="color: #399918;">Location</label>
+                            <input type="text" id="location" class="form-control" formControlName="location" placeholder="Enter Job Location">
+                            <div class="invalid-feedback" *ngIf="jobForm.get('location')?.invalid && (jobForm.get('location')?.dirty || jobForm.get('location')?.touched)">
+                                Job location is required.
+                            </div>
+                        </div>
+
+                        <!-- Requirements -->
+                        <div class="mb-3">
+                            <label for="requirements" class="form-label" style="color: #399918;">Requirements</label>
+                            <input type="text" id="requirements" class="form-control" formControlName="requirements" placeholder="Enter Job Requirements">
+                            <div class="invalid-feedback" *ngIf="jobForm.get('requirements')?.invalid && (jobForm.get('requirements')?.dirty || jobForm.get('requirements')?.touched)">
+                                Requirements are required.
+                            </div>
+                        </div>
+
+                        <!-- Job Type -->
+                        <div class="mb-3">
+                            <label for="jobType" class="form-label" style="color: #399918;">Job Type</label>
+                            <select id="jobType" class="form-select" formControlName="jobType">
+                                <option value="full-time">Full Time</option>
+                                <option value="part-time">Part Time</option>
+                                <option value="internship">Internship</option>
+                            </select>
+                        </div>
+
+                        <!-- Salary -->
+                        <div class="mb-3">
+                            <label for="Salary" class="form-label" style="color: #399918;">Salary</label>
+                            <input type="number" id="Salary" class="form-control" formControlName="salary" placeholder="Enter Salary">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-lg w-100" [disabled]="jobForm.invalid" style="background-color: #399918; color: #ffffff;">
+                    Submit
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

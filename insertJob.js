@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const Job = require('./models/job'); 
 
-
-mongoose.connect('mongodb://localhost:27017/jobBoardDB');
+mongoose.connect('mongodb://localhost:27017/JobBoardDB');
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -12,10 +11,10 @@ db.once('open', async function() {
 
   try {
     // Assuming you already have a User with ObjectId 'userObjectId'
-    const employerId = '66b34076b4aa32efa393bd63'; 
+    const employerId = '66c278094a297cef3357e5c6'; 
 
     const newJob = new Job({
-        title: 'Software Engineer',
+        title: 'FrontEnd Developer',
         description: 'Develop and maintain software applications.',
         location: 'New York, NY',
         salary: 120000,

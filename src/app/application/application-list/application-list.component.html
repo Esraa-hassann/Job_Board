@@ -1,1 +1,94 @@
-<p>application-list works!</p>
+<app-navbar></app-navbar>
+<div class="container mt-4">
+    <div class="align-items-center mb-4">
+      <h2 style="color: #FF7777;" class="text-center text-uppercase">Applications List</h2>
+    </div> 
+    <div class="table-responsive">
+      <table class="table table-hover mt-4">
+        <thead >
+          <tr class="text-center" style="background-color: #399918;">
+            <th style="background-color: #399918; color: #e7f6e2" scope="col">#</th>
+            <th style="background-color: #399918; color: #e7f6e2" scope="col">Job Title</th>
+            <th *ngIf="role=== 'jobSeeker'" style="background-color: #399918; color: #e7f6e2" scope="col">Application Date</th>
+            <th *ngIf="role=== 'jobSeeker'" style="background-color: #399918; color: #e7f6e2" scope="col">Status</th>
+            <th *ngIf="role=== 'employer'" style="background-color: #399918; color: #e7f6e2" scope="col">Applicant name</th>
+            <th *ngIf="role=== 'employer'" style="background-color: #399918; color: #e7f6e2" scope="col">Contact Email</th>
+            <th style="background-color: #399918; color: #e7f6e2" scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody >
+          <tr *ngFor="let application of applications; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ application.job.jobTitle }}</td>
+            <td *ngIf="role=== 'jobSeeker'">{{ application.appliedAt | date }}</td>
+            <td *ngIf="role=== 'jobSeeker'">
+              <span [ngClass]="{
+                'badge badge-success': application.status === 'accepted',
+                'badge badge-warning': application.status === 'pending',
+                'badge badge-danger': application.status === 'Rejected'
+              }">
+                {{ application.status }}
+              </span>
+            </td>
+            <td *ngIf="role === 'employer'">{{ application.applicant.profile.firstName }} {{ application.applicant.profile.lastName }}</td>
+            <td *ngIf="role === 'employer'"> <a href="mailto:{{ application.applicant.email }}">  {{ application.applicant.email }} </a></td>
+            <td>
+              <button class="btn btn-info btn-sm" (click)="viewDetails(application._id)">View Details</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    
+    
+  <!--Faq section-->
+    <div class="row mt-5" *ngIf="role==='jobSeeker'">
+      <div class="col-md-12">
+        <h3 style="color: #399918;">Frequently Asked Questions 🎯</h3>
+        <div class="accordion mt-3" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                What is the status of my application?
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div class="accordion-body" style="background-color: #ECFFE6;">
+                You can check the status of your application in the table above. If your status is 'Pending', it means your application is under review.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                How can I improve my chances of getting hired?
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+              <div class="accordion-body" style="background-color: #ECFFE6;">
+                Make sure your resume is tailored to the job description, and prepare thoroughly for the interview by researching the company and practicing common questions.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Can I reapply if my application is rejected?
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+              <div class="accordion-body" style="background-color: #ECFFE6;">
+                Yes, you can reapply for the same position if you believe you have improved your qualifications or have additional relevant experience to present.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+  </div>
+<footer>
+  <app-footer></app-footer>
+</footer>

@@ -1,0 +1,19 @@
+container{
+   background-color: #ECFFE6; 
+}
+h1{
+    color: #FF7777;
+    font-family: 'Georgia', 'Times New Roman', Times, serif;
+}
+p{
+    font-family: sans-serif;
+}
+.card-title{
+    color:#FF7777;
+}
+.card-text{
+    color: #5AA469;
+}
+.card{
+    border-top: #BCE29E 5px solid;
+} 

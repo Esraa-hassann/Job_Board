@@ -1,14 +1,35 @@
-const Application = require('../models/application');
+const Application = require('../models/applications');
+const User = require('../models/user');
 
+// Create Application
 exports.createApplication = async (req, res) => {
-    const newApplication = new Application(req.body);
     try {
-        const application = await newApplication.save();
-        res.status(201).json(application);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
+      const { resume, status, job, applicant } = req.body;
+  
+      
+      const applicantUser = await User.findById(applicant);
+  
+      if (!applicantUser) {
+        return res.status(404).json({ error: 'Applicant not found' });
+      }
+  
+      
+      if (applicantUser.userType === 'job_seeker' && !resume) {
+        return res.status(400).json({ error: 'Job seekers must upload a resume.' });
+      }
+  
+      if (applicantUser.userType === 'employer' && resume) {
+        return res.status(400).json({ error: 'Employers should not upload a resume.' });
+      }
+  
+      const newApplication = new Application({ resume, status, job, applicant });
+      await newApplication.save();
+  
+      res.status(201).json(newApplication);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
     }
-};
+  };
 
 exports.getApplications = async (req, res) => {
     try {
@@ -22,8 +43,11 @@ exports.getApplications = async (req, res) => {
 exports.getApplication = async (req, res) => {
     try {
         const application = await Application.findById(req.params.id).populate('job applicant');
-        if (!application) return res.status(404).json({ message: 'Application not found' });
-        res.json(application);
+        if (!application) {
+            return res.status(404).json({ message: 'Application not found' });
+        }
+
+        res.json(application); 
     } catch (err) {
         res.status(500).json({ message: err.message });
     }

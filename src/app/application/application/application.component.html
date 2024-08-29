@@ -1,1 +1,64 @@
-<p>application works!</p>
+<app-navbar></app-navbar>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="job-application-details">
+        <h1 class="job-title text-center mb-4">{{ application?.job.jobTitle }}</h1>
+        <div class="job-info">
+          <div class="row">
+            <div class="col-md-6">
+              <p><strong>Application Date:</strong> {{ application.appliedAt | date }}</p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>Status:</strong>
+                <span [ngClass]="{
+                  'badge text-white bg-success': application?.status === 'Approved',
+                  'badge text-dark bg-warning': application?.status === 'Pending',
+                  'badge text-white bg-danger': application?.status === 'Rejected'
+                }">
+                  {{ application?.status }}
+                </span>
+              </p>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-12">
+              <p><strong>Job Description:</strong> {{ application?.job.description }}</p>
+            </div>
+            <div *ngIf="role === 'employer'" class="col-12 mt-3">
+              <p><strong>Applicant Bio:</strong> {{ application?.applicant.profile.bio }}</p>
+            </div>
+            <div *ngIf="role === 'employer'" class="col-12 mt-3">
+              <p><strong>Applicant Resume: </strong>
+                <a [href]="'http://localhost:3000/api/users/' + application.applicant.profile.resume" class="btn btn-info">
+                  View CV
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="role === 'jobSeeker'" class="job-actions text-center mt-4">
+          <button class="btn btn-danger" (click)="withdrawApplication()" style="background-color: #FF7777;">
+            Withdraw Application
+          </button>
+        </div>
+        <div *ngIf="role === 'employer'" class="text-center mt-4">
+          <label for="status" class="form-label"><strong>Update Status:</strong></label>
+          <div class="input-group">
+            <select [(ngModel)]="newStatus" id="status" class="form-select">
+              <option value="pending">Pending</option>
+              <option value="accepted">Accepted</option>
+              <option value="rejected">Rejected</option>
+            </select>
+            <button (click)="updateStatus()" class="btn text-white" style="background-color: #399918;">
+              Update Status
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>
+  <app-footer></app-footer>
+</footer>

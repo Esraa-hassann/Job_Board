@@ -1,1 +1,97 @@
-<p>edit-profile works!</p>
+
+<div class="container mt-5">
+    <div>
+        <button class="btn btn-success" routerLink="/profile"> Back to profile </button>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center mb-4" style="color: #399918;">Edit Your Profile</h2>
+            <p class="text-center" style="color: #777777;">Update your profile information below.</p>
+
+            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" class="form-control" formControlName="email" placeholder="Enter your email" >
+                    <div class="invalid-feedback" *ngIf="profileForm.get('email')?.invalid && (profileForm.get('email')?.dirty || profileForm.get('email')?.touched)">
+                        <div *ngIf="profileForm.get('email')?.errors?.['required']">Email is required.</div>
+                        <div *ngIf="profileForm.get('email')?.errors?.['email']">Please enter a valid email address.</div>
+                    </div>
+                </div>
+                <form formGroupName="profile">
+                    <!-- First Name -->
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" id="firstName" class="form-control" formControlName="firstName" placeholder="Enter your first name">
+                    <div class="invalid-feedback" *ngIf="profileForm.get('firstName')?.invalid && (profileForm.get('firstName')?.dirty || profileForm.get('firstName')?.touched)">
+                        First name is required.
+                    </div>
+                </div>
+
+                <!-- Last Name -->
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" id="lastName" class="form-control" formControlName="lastName" placeholder="Enter your last name">
+                    <div class="invalid-feedback" *ngIf="profileForm.get('lastName')?.invalid && (profileForm.get('lastName')?.dirty || profileForm.get('lastName')?.touched)">
+                        Last name is required.
+                    </div>
+                </div>
+
+                <!-- Age -->
+                <div class="mb-3">
+                    <label for="age" class="form-label">Age</label>
+                    <input type="number" id="age" class="form-control" formControlName="age" placeholder="Enter your age">
+                    <div class="invalid-feedback" *ngIf="profileForm.get('age')?.invalid && (profileForm.get('age')?.dirty || profileForm.get('age')?.touched)">
+                        Age is required.
+                    </div>
+                </div>
+
+                <!-- Phone Number -->
+                <div class="mb-3">
+                    <label for="contactNumber" class="form-label">Phone Number</label>
+                    <input type="tel" id="contactNumber" class="form-control" formControlName="contactNumber" placeholder="Enter your phone number">
+                    <div class="invalid-feedback" *ngIf="profileForm.get('contactNumber')?.invalid && (profileForm.get('contactNumber')?.dirty || profileForm.get('contactNumber')?.touched)">
+                        <div *ngIf="profileForm.get('contactNumber')?.errors?.['required']">Phone number is required.</div>
+                        <div *ngIf="profileForm.get('contactNumber')?.errors?.['minlength']">Phone number must be at least 11 digits.</div>
+                    </div>
+                </div>
+
+                <!-- Bio -->
+                <div class="mb-3">
+                    <label for="bio" class="form-label">Bio</label>
+                    <input type="text" id="bio" class="form-control" formControlName="bio" placeholder="Enter your bio">
+                </div>
+
+                <!-- CV Upload (only if Job Seeker) -->
+                <div class="mb-3" *ngIf="role === 'jobSeeker'">
+                    <label for="resume" class="form-label">Upload the CV link</label>
+                    <input type="text" name="resume" id="resume" class="form-control" formControlName="resume">
+                </div>
+
+                <!-- Employer Specific Fields -->
+                <div *ngIf="role === 'employer'">
+                    <!-- Company Name -->
+                    <div class="mb-3">
+                        <label for="companyName" class="form-label">Company Name</label>
+                        <input type="text" id="companyName" class="form-control" formControlName="companyName" placeholder="Enter your company name">
+                    </div>
+
+                    <!-- Company Website -->
+                    <div class="mb-3">
+                        <label for="companyWebsite" class="form-label">Company Website</label>
+                        <input type="text" id="companyWebsite" class="form-control" formControlName="companyWebsite" placeholder="Enter your company website">
+                    </div>
+                </div>
+
+                </form>
+
+                
+
+                
+                <button type="submit" class="btn btn-lg w-100" [disabled]="profileForm.invalid" style="background-color: #399918; color: white;">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

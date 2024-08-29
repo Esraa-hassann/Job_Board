@@ -1,1 +1,155 @@
-<p>profile works!</p>
+<app-navbar></app-navbar>
+
+<div class="container mt-5">
+  <div class="profile-header text-center mb-5">
+    <h1 class="fw-bold text-success">Welcome, {{ user.profile.firstName }}!</h1>
+    <p class="text-bold">Manage your profile and explore the features available to you.</p>
+  </div>
+  
+  <div class="row mt-5" *ngIf="role==='jobSeeker'">
+    <div class="col-md-12">
+      <div class="card shadow mb-5 bg-body rounded" style="border-color: #399918;">
+        <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #399918; color: #ECFFE6;">
+          <h4 class="mb-0">Boost Your Job Search</h4> 
+          <i class="fas fa-lightbulb"></i>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-1">
+              <i class="fas fa-file-alt" style="color: #FF7777;"></i>
+            </div>
+            <div class="col-md-11" >
+              <p><span style="color: #FF7777;">🎯</span> <strong>Tailor your resume:</strong> Customize your resume for each job application to highlight relevant experience.</p>
+              <p><span style="color: #FFAAA7;">🎤</span> <strong>Practice interviews:</strong> Prepare for common interview questions and practice your responses.</p>
+              <p><span style="color: #ECFFE6;">💼</span> <strong>Build an online presence:</strong> Enhance your LinkedIn profile and engage with industry-related content.</p>
+              <p><span style="color: #399918;">🔗</span> <strong>Network effectively:</strong> Connect with professionals in your field and attend relevant events.</p>
+              <p><span style="color: #FF7777;">📧</span> <strong>Follow up:</strong> Send a thank-you email after interviews to reiterate your interest.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row mt-5" *ngIf="role==='employer'">
+    <div class="col-md-12">
+      <div class="card shadow mb-5 bg-body rounded" style="border-color: #399918;">
+        <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #399918; color: #ECFFE6;">
+          <h4 class="mb-0">Attract Top Talent</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-11">
+              <p><span style="color: #FF7777;">📣</span> <strong>Craft compelling job descriptions:</strong> Clearly articulate the role's responsibilities and requirements.</p>
+              <p><span style="color: #FFAAA7;">🔍</span> <strong>Utilize effective job boards:</strong> Post your job openings on relevant platforms.</p>
+              <p><span style="color: #ECFFE6;">🤝</span> <strong>Leverage your network:</strong> Reach out to your contacts for referrals.</p>
+              <p><span style="color: #399918;">🔍</span> <strong>Conduct thorough interviews:</strong> Ask insightful questions to assess candidates' skills and fit.</p>
+              <p><span style="color: #FF7777;">🌟</span> <strong>Offer competitive compensation and benefits:</strong> Attract top talent with attractive packages.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Main Row -->
+  <div class="row">
+    <div class="col-md-8">
+
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <ng-container *ngIf="user.role === 'jobSeeker'">
+            <p>Check out the latest updates of your application list<br> </p>
+            <button class="btn btn-success" (click)="goToApp()">View Application List</button>
+            <p class="mt-3">Interested in applying for a job? Explore the latest job openings:</p>
+            <button class="btn btn-success" (click)="goToJobList()">View Job List</button>
+          </ng-container>
+
+          <ng-container *ngIf="user.role === 'employer'">
+            
+            <p>Add a new Job to Your list</p>
+            <button class="btn btn-success me-2" (click)="goToJobForm()">Post a New Job</button>
+            <br>
+            <br>
+            <p>Check out list of people Applied for your Job</p>
+            <button class="btn btn-success me-2" routerLink="/applicationlist">View Applicants</button>
+            <br>
+            <p class="mt-3"> Check all your posted jobs</p>
+            <button class="btn btn-success" (click)="goToJobList()">View Job List</button>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Profile Information Card -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Profile Information</h5>
+          
+          <!-- Job Seeker Profile -->
+          <div *ngIf="user.role === 'jobSeeker'">
+            <p><strong>Bio:</strong> {{ user.profile.bio }}</p>
+            <p><strong>Resume: </strong>
+              <ng-container *ngIf="user.profile.resume">
+                <a href="'http://localhost:3000/api/users/' + user.profile.resume">View CV</a>
+              </ng-container>
+              <ng-container *ngIf="!user.profile.resume">
+                <span>No CV uploaded.</span>
+              </ng-container>
+            </p>
+          </div>
+          
+          <!-- Employer Profile -->
+          <div *ngIf="user.role === 'employer'">
+            <p><strong>Company Name:</strong> {{ user.profile.companyName }}</p>
+            <p><strong>Website:</strong> 
+              <a [href]="user.profile.companyWebsite" target="_blank">{{ user.profile.companyWebsite }}</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- About Me Card (Employer only) -->
+      <div *ngIf="user.role === 'employer'" class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title">About Me</h5>
+          <p>{{ user.profile.bio || 'No bio available.' }}</p>
+        </div>
+      </div>
+
+      <!-- Account Details Card -->
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Account Details</h5>
+          <p><strong>Created At:</strong> {{ user.createdAt | date:'medium' }}</p>
+          <p><strong>Last Updated:</strong> {{ user.updatedAt | date:'medium' }}</p>
+        </div>
+      </div>
+    </div>
+
+ 
+    <div class="col-md-4">
+      
+      <!-- User Info Card -->
+      <div class="card text-center shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title">{{ user.profile.firstName }} {{ user.profile.lastName }}</h5>
+          <p class="card-text fw-bold text-success">{{ user.role | titlecase }}</p>
+        </div>
+      </div>
+
+      <!-- Contact Information Card -->
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Contact Information</h5>
+          <p><strong>Email:</strong> {{ user.email }}</p>
+          <p><strong>Contact Number:</strong> {{ user.profile.contactNumber }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-footer></app-footer>

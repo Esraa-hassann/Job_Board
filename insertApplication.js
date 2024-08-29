@@ -3,7 +3,7 @@ const Application = require('./models/applications');
 const Job = require('./models/job');
 const User = require('./models/user');
 
-mongoose.connect('mongodb://localhost:27017/jobBoardDB');
+mongoose.connect('mongodb://localhost:27017/JobBoardDB');
 
 
 
@@ -15,8 +15,8 @@ mongoose.connect('mongodb://localhost:27017/jobBoardDB');
   
     try {
       // Assuming you already have a User with ObjectId 'userObjectId'
-      const applicantId = '66b34400ddb3bca3d8019868'; 
-      const jobId = '66b3414d0df3e6cb816526f9';
+      const applicantId = '66c276c4c53c791136db6756'; 
+      const jobId = '66c332f2fd32b8a3629948ee';
   
       const newApplication = new Application({
          applicant : new mongoose.Types.ObjectId(applicantId),

@@ -1,1 +1,37 @@
-<p>job-list works!</p>
+<app-navbar></app-navbar>
+<div class="container py-5">
+  <div *ngIf="role === 'employer'">
+    <h1 class="text-center mb-5" style="color: #399918;">Your Saved Jobs</h1>
+  </div>
+  <div *ngIf="role === 'jobSeeker'">
+    <h1 class="text-center mb-5" style="color: #399918;">Available Jobs</h1>
+  </div>
+    
+    <div class="row">
+      <div *ngFor="let job of jobs" class="col-md-12 mb-3">
+        <div class="card border border-success-subtle shadow">
+          <div class="card-body bg-light">
+            <h3 class="card-title">{{ job.jobTitle }}</h3>
+            <!-- <p class="card-text">{{ job.description }}</p> -->
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" *ngIf="job.location">
+                <strong style="color: #399918;">Location:</strong> {{ job.location }}
+              </li>
+              <li class="list-group-item" *ngIf="job.salary">
+                <strong style="color: #399918;">Salary:</strong> {{ job.salary | currency:'EGP ':'symbol':'3.0' }}
+              </li>
+              <li class="list-group-item" *ngIf="job.jobType">
+                <strong style="color: #399918;">Job Type:</strong> {{ job.jobType }}
+              </li>
+            </ul>
+          </div>
+          <div class="card-footer d-flex justify-content-end">
+            <button class="btn" [routerLink]="['/jobDetails', job._id]">View More Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    <app-footer></app-footer>
+  

@@ -7,5 +7,4 @@ router.get('/', applicationController.getApplications);
 router.get('/:id', applicationController.getApplication);
 router.put('/:id', applicationController.updateApplication);
 router.delete('/:id', applicationController.deleteApplication);
-
 module.exports = router;
